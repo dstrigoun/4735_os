@@ -40,3 +40,4 @@ end_bss_init:
 halt:						/* Kernel should not return, but in case it does */
     wfe @ low-power mode
     b halt
+	

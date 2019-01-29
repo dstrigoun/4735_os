@@ -1,10 +1,10 @@
 #include <stddef.h>
 #include <stdint.h>
 
-// void uart_putc(uint8_t c);
-// uint8_t uart_getc(void);
+void uart_putc(uint8_t c);
+uint8_t uart_getc(void);
 void memory_write(uint32_t address, uint32_t v);
-// uint32_t memory_read(uint32_t address);
+uint32_t memory_read(uint32_t address);
 void delay(int32_t count);
 void uart_init(void);
 

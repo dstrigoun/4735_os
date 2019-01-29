@@ -1,28 +1,28 @@
 #include "ass.h"
 
-// void uart_putc(uint8_t c){
-// 	//wait for it to be ready
-// 	while ( memory_read(UART0_FR) & (1 << 5) );
+void uart_putc(uint8_t c){
+	//wait for it to be ready
+	while ( memory_read(UART0_FR) & (1 << 5) );
 	
-// 	//write
-// 	memory_write(UART0_DR, c);
-// }
+	//write
+	memory_write(UART0_DR, c);
+}
  
-// uint8_t uart_getc(void){
-//     //wait for it to be ready
-//     while ( memory_read(UART0_FR) & (1 << 4) );
+uint8_t uart_getc(void){
+    //wait for it to be ready
+    while ( memory_read(UART0_FR) & (1 << 4) );
 	
-// 	//write
-//     return memory_read(UART0_DR);
-// }
+	//write
+    return memory_read(UART0_DR);
+}
 
 void memory_write(uint32_t address, uint32_t v){
 	*(volatile uint32_t*)address = v;
 } 
 
-// uint32_t memory_read(uint32_t address){
-// 	return *(volatile uint32_t*)address;
-// }
+uint32_t memory_read(uint32_t address){
+	return *(volatile uint32_t*)address;
+}
  
 
 /*

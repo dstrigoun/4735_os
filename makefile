@@ -1,26 +1,30 @@
-EAC = arm-none-eabi-as.exe
-ECC = arm-none-eabi-gcc.exe
-ELD = arm-none-eabi-ld.exe
+EAC=arm-none-eabi-as.exe
+ECC=arm-none-eabi-gcc.exe
+ELD=arm-none-eabi-ld.exe
+QEMU=qemu-system-arm.exe
 
 default: kernel.elf
 
 boot.o:
-    $(EAC) boot.s -o boot.o
+	$(EAC) boot.s -o boot.o
 
 video_sample.o:
-    $(EAC) video_sample.s -o video_sample.o
+	$(EAC) video_sample.s -o video_sample.o
 
 ass.o:
-    $(ECC) -mcpu=arm6 -fpic -ffreestanding -std=gnu99 -c ass.c -o ass.o -O0
+	$(ECC) -mcpu=arm6 -fpic -ffreestanding -std=gnu99 -c ass.c -o ass.o -O0
 
 hal.o:
-    $(ECC) -mcpu=arm6 -fpic -ffreestanding -std=gnu99 -c hal.c -o hal.o -O0
+	$(ECC) -mcpu=arm6 -fpic -ffreestanding -std=gnu99 -c hal.c -o hal.o -O0
 
 kernel.o:
-    $(ECC) -mcpu=arm6 -fpic -ffreestanding -std=gnu99 -c kernel.c -o kernel.o -O0
+	$(ECC) -mcpu=arm6 -fpic -ffreestanding -std=gnu99 -c kernel.c -o kernel.o -O0
 
-kernel.elf: boot.o video_sample.o kernel.o
-    $(ELD) boot.o video_sample.o kernel.o -T linker.ld -o kernel.elf
-    
+kernel.elf: boot.o video_sample.o kernel.o hal.o ass.o
+	$(ELD) boot.o video_sample.o kernel.o hal.o ass.o -T linker.ld -o kernel.elf
+
 clean:
-    $(RM) kernel.elf *.o *~
+	rm -f kernel.elf *.o
+
+run:
+	$(QEMU) -m 256 -M raspi2 -serial stdio -kernel kernel.elf

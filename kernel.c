@@ -10,16 +10,15 @@
 
 //uart
 // void uart_init(void);
-void uart_putc(uint8_t);
+//void uart_putc(uint8_t);
 uint8_t uart_getc();
 
 //memory
-uint32_t memory_read(uint32_t);
+//uint32_t memory_read(uint32_t);
 // void memory_write(uint32_t, uint32_t );
 
 
 // void delay(int32_t);
-void _video_sample(void);
 
 
 /*
@@ -28,52 +27,22 @@ void _video_sample(void);
 **/
 void main(uint32_t r0, uint32_t r1, uint32_t atags){
 	
-	_video_sample();
+	hal_io_video_init();
 	
 	
 	//Begin the one-line typewriter
 	hal_io_serial_init();
 	
-	uart_putc( 'H' );
-	uart_putc( 'e' );
-	uart_putc( 'l' );
-	uart_putc( 'l' );
-	uart_putc( 'o' );
-	uart_putc( ' ' );
-	uart_putc( 'W' );
-	uart_putc( 'o' );
-	uart_putc( 'r' );
-	uart_putc( 'l' );
-	uart_putc( 'd' );
-	uart_putc( '\n' );
-	uart_putc( '\r' );
+	hal_io_serial_putc( SERIAL_ID, 'H' );
+	hal_io_serial_putc( SERIAL_ID, 'e' );
+	hal_io_serial_putc( SERIAL_ID, 'l' );
+	hal_io_serial_putc( SERIAL_ID, 'l' );
+	hal_io_serial_putc( SERIAL_ID, 'o' );
+	hal_io_serial_putc( SERIAL_ID, '\n' );
+	hal_io_serial_putc( SERIAL_ID, '\r' );
  
-	// while (1)
-	// 	uart_putc( uart_getc() );  // <<---- This is why your CPU goes crazy when you run the kernel
-}
-
-void uart_putc(uint8_t c){
-	//wait for it to be ready
-	while ( memory_read(UART0_FR) & (1 << 5) );
-	
-	//write
-	memory_write(UART0_DR, c);
-}
- 
-uint8_t uart_getc(void){
-    //wait for it to be ready
-    while ( memory_read(UART0_FR) & (1 << 4) );
-	
-	//write
-    return memory_read(UART0_DR);
-}
-
-// void memory_write(uint32_t address, uint32_t v){
-// 	*(volatile uint32_t*)address = v;
-// } 
-
-uint32_t memory_read(uint32_t address){
-	return *(volatile uint32_t*)address;
+	while (1)
+		hal_io_serial_putc( SERIAL_ID, hal_io_serial_getc(SERIAL_ID) );  // <<---- This is why your CPU goes crazy when you run the kernel
 }
  
 

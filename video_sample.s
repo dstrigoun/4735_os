@@ -15,12 +15,13 @@
 @ that can be easily programmed via mailbox interface
 
 .section .text
+.globl _video_init
 .globl _video_sample
 .align 2
 
 @@@@@@@@@@@@@@ START @@@@@@@@@@@@@
 
-_video_sample:
+_video_init:
 	push {lr}
 
     @ set Video Controller resolution to 640x480x16bit
@@ -44,9 +45,14 @@ _video_sample:
     cmp r0, #0
     beq .vc_init_fail
 
+	pop {pc}
+
+_video_sample:
+	push {lr}
+
     @ draw "NO OS" text
     bl vc_draw_no_os_bmp
-    
+
 	pop {pc}
 
 .vc_init_fail:
