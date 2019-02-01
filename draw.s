@@ -53,23 +53,17 @@ _draw:
     ldr r0, [r1, #20]
     cmp r0, #0
     beq .vc_init_fail
-	
 
-	
 
 	fb    .req r0
-    white .req r1
+	x	  .req r9
+	y     .req r8
+    white .req r2
 
     ldr white, =#0xFFFFFFFF
-	ldr r2, =#282150
-	add fb, r2
+	add fb, y
 
-	str white, [fb, #0]
-	str white, [fb, #4]
-	str white, [fb, #32]
-	str white, [fb, #36]
-	str white, [fb, #56]
-	str white, [fb, #60]
+	str white, [fb, x]
 	
 	pop {r2-r9}
 	pop {pc}

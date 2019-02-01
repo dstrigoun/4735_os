@@ -35,6 +35,7 @@ void hal_io_video_putpixel(int x, int y, int color) {
     for (int i = 0; i < 1280; i++) {
         _draw(x+i, 1280*y);
     }
+    
 }
 
 void hal_io_video_putc(int x, int y, int color, uint8_t c) {
