@@ -3,6 +3,7 @@
 
 #include "ass.h"
 #include "letters.h"
+#include "draw.h"
 
 #define SERIAL_ID 1
 

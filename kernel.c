@@ -13,7 +13,7 @@
 void main(uint32_t r0, uint32_t r1, uint32_t atags){
 	
 	hal_io_video_init();
-	
+	hal_io_video_putpixel(640, 100, 0);
 	
 	//Begin the one-line typewriter
 	hal_io_serial_init();
