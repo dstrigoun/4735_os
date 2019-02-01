@@ -37,10 +37,11 @@ _video_init:
 
 _draw:
 	push {lr}
-	push {r2-r9}
+	push {r3-r9}
 
 	mov r9, r0
 	mov r8, r1
+	mov r7, r2
 
 	@ get VC framebuffer address
     ldr r1, =vc_alloc_fb
@@ -58,14 +59,12 @@ _draw:
 	fb    .req r0
 	x	  .req r9
 	y     .req r8
-    white .req r2
+    color .req r7
 
-    ldr white, =#0xFFFFFFFF
 	add fb, y
-
-	str white, [fb, x]
+	str color, [fb, x]
 	
-	pop {r2-r9}
+	pop {r3-r9}
 	pop {pc}
 
 .vc_init_fail:
