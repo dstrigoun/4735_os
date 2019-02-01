@@ -32,9 +32,11 @@ void hal_io_video_putpixel(int x, int y, int color) {
     // x     -> add fb, x
     // color -> get hex... (#0xFFFFFFFF)
 
-    for (int i = 0; i < 1280; i++) {
-        _draw(x+i, 1280*y);
-    }
+    // for (int i = 0; i < 1280; i++) {
+    //     _draw(x+i, 1280*y);
+    // }
+
+    _draw(x, 1280*y);
     
 }
 
@@ -47,8 +49,16 @@ void hal_io_video_putc(int x, int y, int color, uint8_t c) {
         for (int xpos = 0; xpos < 11; xpos++) {
             switch(c) {
                 case 'a':
-                    if (aChar[ypos][xpos] == 1)
+                    hal_io_serial_putc( SERIAL_ID, 'H' );
+                    hal_io_serial_putc( SERIAL_ID, 'e' );
+                    hal_io_serial_putc( SERIAL_ID, 'l' );
+                    hal_io_serial_putc( SERIAL_ID, 'l' );
+                    hal_io_serial_putc( SERIAL_ID, 'o' );
+                    hal_io_serial_putc( SERIAL_ID, '\n' );
+                    hal_io_serial_putc( SERIAL_ID, '\r' );
+                    if (aChar[ypos][xpos] == 1) {
                         hal_io_video_putpixel(x+xpos, y+ypos, color);
+                    }
                     break;
             }
         }
