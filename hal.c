@@ -38,4 +38,9 @@ void hal_io_video_putc(int x, int y, int color, uint8_t c) {
     // get pattern for letter
     // start at (x, y)
         // call hal_io_video_putpixel for each x and y
+
+    switch (c) {
+        case 'a':
+            break;
+    }
 }

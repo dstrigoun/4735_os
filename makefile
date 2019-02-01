@@ -11,6 +11,9 @@ boot.o:
 video_sample.o:
 	$(EAC) video_sample.s -o video_sample.o
 
+letters.o:
+	$(ECC) -mcpu=arm6 -fpic -ffreestanding -std=gnu99 -c letters.c -o letters.o -O0
+
 ass.o:
 	$(ECC) -mcpu=arm6 -fpic -ffreestanding -std=gnu99 -c ass.c -o ass.o -O0
 
@@ -20,8 +23,8 @@ hal.o:
 kernel.o:
 	$(ECC) -mcpu=arm6 -fpic -ffreestanding -std=gnu99 -c kernel.c -o kernel.o -O0
 
-kernel.elf: boot.o video_sample.o kernel.o hal.o ass.o
-	$(ELD) boot.o video_sample.o kernel.o hal.o ass.o -T linker.ld -o kernel.elf
+kernel.elf: boot.o video_sample.o kernel.o hal.o ass.o letters.o
+	$(ELD) boot.o video_sample.o kernel.o hal.o ass.o letters.o -T linker.ld -o kernel.elf
 
 clean:
 	rm -f kernel.elf *.o
