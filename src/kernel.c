@@ -4,7 +4,7 @@
 *	
 */
 
-#include "kernel.h"
+#include "../header/kernel.h"
 
 /*
  *		Kernel's entry point
